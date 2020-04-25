@@ -10,16 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:golang",
-		"onLanguage:js",
-		"onCommand:vscode-go-gvm.helloWorld"
+		"onLanguage:go",
+		"onLanguage:js"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-go-gvm.helloWorld",
-				"title": "Hello World"
+				"command": "vscode-go-gvm.install-go-version",
+				"title": "GVM: Install Go version"
+			},
+			{
+				"command": "vscode-go-gvm.remove-go-version",
+				"title": "GVM: Uninstall Go version"
 			}
 		]
 	},
