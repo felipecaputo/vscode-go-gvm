@@ -1,8 +1,22 @@
 {
 	"name": "vscode-go-gvm",
-	"displayName": "vscode-go-gvm",
+	"displayName": "GVM: Go Version Manager",
 	"description": "An extension to make it easier to manage golang vesions using GVM inside your prefered editor",
-	"version": "0.0.1",
+	"publisher": "felipecaputo0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/felipecaputo/vscode-go-gvm"
+	},
+	"bugs": {
+		"email": "felipe.caputo@gmail.com",
+		"url": "https://github.com/felipecaputo/vscode-go-gvm/issues"
+	},
+	"icon": "assets/gologo.jpg",
+	"galleryBanner": {
+		"color": "#303030",
+		"theme": "dark"
+	},
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
@@ -10,8 +24,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:go",
-		"onLanguage:js"
+		"onLanguage:go"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -23,8 +36,36 @@
 			{
 				"command": "vscode-go-gvm.remove-go-version",
 				"title": "GVM: Uninstall Go version"
+			},
+			{
+				"command": "vscode-go-gvm.set-current-version",
+				"title": "GVM: Set current version"
+			},
+			{
+				"command": "vscode-go-gvm.set-default-version",
+				"title": "GVM: Set default version"
 			}
-		]
+		],
+		"configuration": {
+			"title": "GVM - Go Version Manager",
+			"properties": {
+				"gvm.pathToDefaultTerminal": {
+					"type": "string",
+					"default": "/bin/bash",
+					"description": "Path to terminal, defaults to `/bin/bash`, but can be almost any shell that supports `source _script_`"
+				},
+				"gvm.showVersionOnStatusBar": {
+					"type": "boolean",
+					"default": true,
+					"description": "Determine if the current GVM/Go version is shown on status bar"
+				},
+				"gvm.setVersionWithDefault": {
+					"type": "boolean",
+					"default": true,
+					"description": "If enabled, will set current version on use with `--current`"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -45,12 +86,11 @@
 		"glob": "^7.1.6",
 		"mocha": "^7.1.1",
 		"typescript": "^3.8.3",
-		"vscode-test": "^1.3.0"
-	},
-	"dependencies": {
+		"vscode-test": "^1.3.0",
 		"@types/chai": "^4.2.11",
 		"@types/sinon": "^9.0.0",
 		"chai": "^4.2.0",
 		"sinon": "^9.0.2"
-	}
+	},
+	"dependencies": {}
 }

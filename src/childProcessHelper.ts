@@ -1,9 +1,10 @@
 import { exec } from 'child_process';
 import { OutputChannel } from 'vscode';
+import Config from './Config';
 
 export function execAsync(command: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        exec(command, (err, stdout, stderr) => {
+        exec('[[ -s "$GVM_ROOT/scripts/gvm" ]] && source "$GVM_ROOT/scripts/gvm" && ' + command, { shell: Config.defaultBashPath }, (err, stdout, stderr) => {
             if (stderr !== "" || err !== null) {
                 reject([stderr || err]);
             }
