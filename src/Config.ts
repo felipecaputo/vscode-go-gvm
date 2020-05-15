@@ -13,7 +13,7 @@ class Config {
 
     loadConfiguration() {
         const config = workspace.getConfiguration("gvm");
-        this.defaultBashPath = config.get("pathToDefaultTerminal") || '/bin/bash';
+        this.defaultBashPath = config.get("pathToDefaultTerminal") || process.env.SHELL || '/bin/bash';
         this.useVersionWithDefault = config.get("setVersionWithDefault") || true;
         this.showVersionOnStatusBar = config.get("showVersionOnStatusBar") || true;
     }

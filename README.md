@@ -30,8 +30,12 @@ it will uninstall the selected version.
 This command will change the current version configured of Go to the selected version,
 using `gvm list` to show all versions, except the currently selected version.
 
-> If the `gvm.setVersionWithDefault` was configured as `true`, this command will do
+> **NOTE 1:** If the `gvm.setVersionWithDefault` was configured as `true`, this command will do
 > the same that **GVM: Set default version**
+
+> **NOTE 2:** You need to close all current opened terminals to apply changes
+
+![Install go version](assets/selectGoVersion.gif)
 
 ### GVM: Set default version
 
@@ -46,7 +50,9 @@ You need to have [gvm installed](https://github.com/moovweb/gvm#installing)
 
 This extension contributes the following settings:
 
-`gvm.pathToDefaultTerminal`: Path to terminal, defaults to `/bin/bash`, but can be almost any shell that supports `source _script_`
+`gvm.pathToDefaultTerminal`: Path to terminal, when not configured, it will OS default shell
+using the `$SHELL` evironment variable. In caso of this variable not found, uses `/bin/bash`, 
+but can be almost any shell that supports `source _script_`
 
 `gvm.showVersionOnStatusBar`: Determine if the current GVM/Go version is shown on status bar, defaults to true
 
