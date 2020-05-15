@@ -51,8 +51,7 @@
 			"properties": {
 				"gvm.pathToDefaultTerminal": {
 					"type": "string",
-					"default": "/bin/bash",
-					"description": "Path to terminal, defaults to `/bin/bash`, but can be almost any shell that supports `source _script_`"
+					"description": "Path to terminal, when not configured, it will OS default shell using the `$SHELL` evironment variable. In caso of this variable not found, uses `/bin/bash`, but can be almost any shell that supports `source _script_`"
 				},
 				"gvm.showVersionOnStatusBar": {
 					"type": "boolean",
