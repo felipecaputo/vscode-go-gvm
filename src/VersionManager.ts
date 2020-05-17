@@ -1,6 +1,6 @@
 import VersionsList from "./VersionsList";
 import { window, OutputChannel, StatusBarItem, } from 'vscode';
-import { execAsyncWithOutput } from "./childProcessHelper";
+import { execAsyncWithOutput, execAsync } from "./childProcessHelper";
 
 type VersionGetterFunc = () => string[] | Thenable<string[]>;
 interface VersionOperationInfo {
@@ -28,14 +28,19 @@ export default class VersionManager {
         this.statusBarItem.command = 'vscode-go-gvm.set-current-version';
         await this.setStatusBarVersion();
     }
-    async runOnTerminal(command: string, description: string) {
-        await execAsyncWithOutput(this.output, command, description);
+
+    async runOnTerminal(command: string, description: string, showOutput: Boolean = true) {
+        if (showOutput) {
+            await execAsyncWithOutput(this.output, command, description);
+        } else {
+            await execAsync(command);
+        }
     }
 
     async setStatusBarVersion() {
         try {
             let versionInfo = this.versionLister.getCurrentSelectedVersion();
-            this.statusBarItem.text = `GVM version: ${(await versionInfo).versionNumber}`;
+            this.statusBarItem.text = `Go ${(await versionInfo).versionNumber}`;
         } catch (e) {
             this.statusBarItem.text = `Error on GetGoVersion`;
             this.statusBarItem.tooltip = `Details: ${e}`;
@@ -78,7 +83,7 @@ export default class VersionManager {
 
     async setCurrentGoVersion(setAsDefault?: boolean) {
         await this.doVersionOperation(() => this.versionLister.getInstalledVersions(true, false), {
-            command: 'gvm use #version --default', //${setAsDefault ? ' --default' : ''}`,
+            command: `gvm use #version --default ${setAsDefault ? ' --default' : ''}`,
             description: `Updating ${setAsDefault ? 'default' : 'current'} go version to #version`,
             errorMessage: `Error updating ${setAsDefault ? 'default' : 'current'} go version. Details: #error`,
             placeholder: 'Select version to use...'

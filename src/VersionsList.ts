@@ -30,22 +30,22 @@ export default class VersionsList {
     }
 
     async getCurrentSelectedVersion(): Promise<VersionInfo> {
-        const out = await execAsync('gvm list');
-        const version = out.split('\n')
-            .map(s => s.trim())
-            .filter(s => s.startsWith('=>'))
-            .map(s => s.replace('=>', ''));
-
-        if (version.length === 0) {
-            throw new Error('Couldn\'t find current version.');
-        }
-
-        if (version.length > 1) {
-            throw new Error(`More than one version were found: ${version}`);
-        }
+        /*         const out = await execAsync('gvm list');
+                const version = out.split('\n')
+                    .map(s => s.trim())
+                    .filter(s => s.startsWith('=>'))
+                    .map(s => s.replace('=>', ''));
+        
+                if (version.length === 0) {
+                    throw new Error('Couldn\'t find current version.');
+                }
+        
+                if (version.length > 1) {
+                    throw new Error(`More than one version were found: ${version}`);
+                } */
 
         return {
-            versionName: version[0],
+            versionName: '',
             versionNumber: (await execAsync('go version')).replace('\n', '').replace('go version go', '')
         };
     }
